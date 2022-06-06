@@ -23,9 +23,9 @@ apt search ros-$ROS_VERSION
 echo "source /opt/ros/$ROS_VERSION/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 
-sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
+sudo apt install python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
 
-sudo apt install python-rosdep
+sudo apt install python3-rosdep
 
 sudo rosdep init
 
