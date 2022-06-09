@@ -23,7 +23,7 @@ echo "Which distribution of ROS are you developing on? melodic or noetic"
 read ROS_DISTRO
 echo "Generating, $ROS_DISTRO workspace........."
 
-git clone -b $ROS_DISTRO-devel https://github.com/ros-industrial/universal_robot.git
+git clone -b melodic-devel https://github.com/ros-industrial/universal_robot.git
 
 cd $HOME/catkin_ws
 
@@ -33,12 +33,13 @@ rosdep install --rosdistro $ROS_DISTRO --ignore-src --from-paths src
 
 catkin_make
 
-source $HOME/catkin_ws/devel/setup.bash
+echo "source $HOME/$WORKSPACE_NAME/devel/setup.bash" >> ~/.bashrc
+source ~/.bashrc
 
-gnome-terminal -- "roslaunch ur_gazebo ur5.launch"
+gnome-terminal -e "roslaunch ur_gazebo ur5.launch"
 sleep 1s
 
-nome-terminal -e "roslaunch ur5_moveit_config ur5_moveit_planning_execution.launch sim:=true"
+gnome-terminal -e "roslaunch ur5_moveit_config ur5_moveit_planning_execution.launch sim:=true"
 sleep 1s
 
 gnome-terminal -e "roslaunch ur5_moveit_config moveit_rviz.launch config:=true"
