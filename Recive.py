@@ -6,15 +6,15 @@ import time
 
 def main():
 	
-	ser = serial.Serial('/dev/ttyUSB1') 		#initializes a USB port. This is Ubuntu address
+	ser = serial.Serial('/dev/ttyUSB1') 		# initializes a USB port. This is Ubuntu address
 	print(ser.name) 							# Check if port exsists
 	while True:
 		length = ser.in_waiting 				# gets the length of the buffer
 		recived_packet = ser.read(length)		# reads the entire length of the buffer
 		if length > 0:			
 			print(recived_packet)				# prints read buffer
-			if recived_packet[-2] != 'o':		# the buffer that this code suppose to recive is "Hello\n" so 2nd to last element is an 'o' and 
-				print("//Not a full packet//")	# if it is not present then that means that we do not have the full packet
+			if recived_packet[-1] != chr(1):	# In this case every packet that sender script sends ends in special character
+				print("//Not a full packet//")	# that has ASCII code of 1. This is used to check if the wnrierty of the packet was recived
 			else:
 				print("Full packet")			# if we have 'o' as the last element then we have full packet
 		else:
