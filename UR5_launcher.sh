@@ -4,6 +4,9 @@
 # California State Polytechnic University Pomona
 # Script follows here:
 
+gnome-terminal -- "roscore"
+sleep 1s
+
 gnome-terminal -e "roslaunch ur_gazebo ur5.launch"
 sleep 1s
 
