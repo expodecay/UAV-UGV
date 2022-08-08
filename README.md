@@ -5,13 +5,13 @@ Unmanned Ariel Vehicle and Unmanned Ground Vehicle collaboration
 ### ROS Installation
 **Tested on ubuntu 20.04 and ros-noetic* 
 
-Start by cloning the repo into your documents folder
+Start by cloning the repo into your documents folder.
 
 From a terminal, navigate to the UAV-UGV directory and run the following command:
 ```
 sh ROS_installer.sh
 ```
-When prompted, provide the install sctipt with the version of ROS that you wish to install. (noetic in this case)
+When prompted, provide the install sctipt with the version of ROS that you wish to install. (noetic in this case).
 Provide 'y' to the terminal if prompted to do so. The installation should take about 5 minutes.
 
 ** Note that while melodic and kinetic can be used, we have had issues running simulations with these versions.
@@ -30,7 +30,7 @@ To do so, run the command
 sh workspace_generator.sh
 ```
 When prompted, provide the script with a name for your workspace (test_workspace in this case). We recommend using only one workspace 
-per installatoin. If successful, you should see a folder appear in your home directory with workspace name you provided.
+per installatoin. If successful, you should see a folder appear in your home directory with the workspace name you provided.
 
 ![workspace generator](readme/workspace.png)
 
@@ -40,9 +40,11 @@ Now you may install the packages needed to run simulations involving the husky-a
 ```
 sh HUSKY_installer.sh
 ```
+and provide the version of your ros installation.
+
 ![workspace generator](readme/husky_install.png)
 
-When the installation is complete, three separate terminals should open automatically: ros master, gazebo, and rviz.
+When the installation is complete, three separate terminals should open automatically: ros-master, gazebo, and rviz.
 
 ![workspace generator](readme/husky_install2.png)
 
