@@ -52,7 +52,7 @@ If everything is successful, you should have two separate windows open. One for 
 and one for <b>RVIZ</b>.
 
 If the installation was not successful, run the script a second time. Sometimes gazebo takes too long to load for rviz.
-and the models will load without textures. If this is the case, run the commands manually 
+and the models will load without textures. If this is the case, run the commands manually.
 
 ```
 roslaunch husky_gazebo husky_empty_world.launch
