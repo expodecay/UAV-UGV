@@ -113,11 +113,39 @@ def set_tolerance(goal, m, rad):
 
 '''
     Creates and sends mission to the Husky
+    goal point is a final destination (GPS coordinate) if the mission it is sent in form of a dictionary
+    with key pairs of "lat": float_lat and "lon": float_lon
+        example:
+            goal_point = {"lat": 34.059361, "lon": -117.820990}
+    
+    Viapoints are a set of points that Husky has to travel through before reaching the goalpoint. 
+    Viapoints are entered as a list of dictionaries. Each dictionary is a GPS coordinate formatted same 
+    as goal point.
+        example:
+            viapoints = [{"lat": 34.059453, "lon": -117.821131}, {"lat": 34.059260, "lon": -117.821073}]
+    
+    Datum is a reference point that is near the mission. It is formatted same as a goal point.
+        Example:
+            datum = {"lat": 34.059319, "lon": -117.820521}
+    
+    Theta is the direction in Husky will face at the end of the mission. Formatted as a float value.
+    
+    # TODO: Figure out if theta is in rads or degrees
+    
+    # tolerance_rad is acceptable error of theta. Assumed to be measured in radians. Formatted as a float value.
+    
+    # tolerance_m is acceptable error of the position of the Husky. Measured in meters, formatted as float.
+    
+    
+    
+    
+
 '''
 
 
-def send_mission(goal_dict, viapoints_list=[], datum_dict={"lat": 34.059319, "lon": -117.820521}, theta=30,
+def send_mission(goal_dict, datum_dict, viapoints_list=[], theta=30,
                  tolerance_rad=0.2, tolerance_m=0.1):
+
     datum_dict = set_datum(datum_dict)
 
     if datum_dict is None:
@@ -136,8 +164,6 @@ def send_mission(goal_dict, viapoints_list=[], datum_dict={"lat": 34.059319, "lo
 
         goal.mission.viapoints = create_viapoints_list(viapoints_list, datum_dict)
 
-        # print(goal.mission.viapoints)
-
         set_final_heading(goal, theta)
 
         set_tolerance(goal, tolerance_m, tolerance_rad)
@@ -152,7 +178,6 @@ def send_mission(goal_dict, viapoints_list=[], datum_dict={"lat": 34.059319, "lo
     return client.get_result()
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
 
     datum = {"lat": 34.059319, "lon": -117.820521}
@@ -165,7 +190,7 @@ if __name__ == '__main__':
     tolerance_rad = 0.2
 
     try:
-        rospy.init_node('simple_nav_example')
+        rospy.init_node('Mission_library')
         res = send_mission(goal_point, viapoints, datum, theta, tolerance_rad, tolerance_m)
         if res:
             print("mission completed!")
