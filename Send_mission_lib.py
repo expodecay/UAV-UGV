@@ -151,6 +151,7 @@ def set_tolerance(goal, m, rad):
 def send_mission(goal_dict, datum_dict, viapoints_list=[], theta=30,
                  tolerance_rad=0.2, tolerance_m=0.1):
 
+    print("Setting Datum: ", datum_dict)
     datum_dict = set_datum(datum_dict)
 
     if datum_dict is None:
@@ -162,23 +163,19 @@ def send_mission(goal_dict, datum_dict, viapoints_list=[], theta=30,
 
     # Creates a SimpleActionClient, passing the type of the action
     client = actionlib.SimpleActionClient('missionplan', cpr_gps_navigation_msgs.msg.MissionAction)
-    print ('temp')
     # Waits until the action server has started up and started
     # listening for goals.
     if client.wait_for_server(timeout=rospy.Duration(5.0)):
         goal = create_goal(goal_dict, datum_dict)
-        print ('G')
         goal.mission.viapoints = create_viapoints_list(viapoints_list, datum_dict)
 
         set_final_heading(goal, theta)
 
         set_tolerance(goal, tolerance_m, tolerance_rad)
-        print ('p')
         # Sends the goal to the action server.
         client.send_goal(goal)
-        print ('ST')
         client.wait_for_result()
-        print ('r')
+
         return client.get_result()
     else:
         return False
@@ -201,10 +198,10 @@ if __name__ == '__main__':
     print ('HOO')
     # viapoints = [{"lat": 34.059360, "lon": -117.821234}, {"lat": 34.059223, "lon": -117.821100}]
     # goal_point = {"lat": 34.059361, "lon": -117.820990}
-#    viapoints = []
-    viapoints = [{"lat": 34.059554, "lon": -117.820977}, {"lat": 34.0588332, "lon": -117.8217256}]
-    goal_point = {"lat": 34.0591652, "lon": -117.8220069}
-    print ('HEE')
+    viapoints = []
+    viapoints = [{"lat": 34.059416, "lon": -117.821077}, {"lat": 34.059372, "lon": -117.820900}]
+    goal_point = {"lat": 34.059545, "lon": -117.820869}
+
     theta = 30
     tolerance_m = 0.1
     tolerance_rad = 0.2
