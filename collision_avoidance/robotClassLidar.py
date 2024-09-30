@@ -1,4 +1,4 @@
-#!usr/bin/env python2
+#!/usr/bin/python
 import rospy
 from geometry_msgs.msg import Point, Twist
 from nav_msgs.msg import Odometry

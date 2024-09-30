@@ -1,7 +1,8 @@
+#!/usr/bin/python
 import rospy
 from gps_common.msg import GPSFix
 from sensor_msgs.msg import NavSatFix
-from new_mission_lib_test import send_mission
+from Send_mission_lib import send_mission
 import fcntl, os
 import errno
 import socket
@@ -45,11 +46,11 @@ def update_location():
     loc = {'lat': data.latitude, 'lon': data.longitude}
 
 
-GROUND_STATION = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-GROUND_STATION.connect(('192.168.1.4', 11234))
-fcntl.fcntl(GROUND_STATION, fcntl.F_SETFL, os.O_NONBLOCK)
+#GROUND_STATION = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#GROUND_STATION.connect(('192.168.137.54', 11237))
+#fcntl.fcntl(GROUND_STATION, fcntl.F_SETFL, os.O_NONBLOCK)
 
-send_data('HUSKY', GROUND_STATION, HEADERSIZE)
+#send_data('HUSKY', GROUND_STATION, HEADERSIZE)
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -86,14 +87,14 @@ print("publisher initialized")
 while True:
     if time.time() - last_log >= LOG_INTERVAL:
         last_log = time.time()
-        send_data(loc, GROUND_STATION, HEADERSIZE)
-
+ #       send_data(loc, GROUND_STATION, HEADERSIZE)
+        print("Sending data to ground station")
     target = recive_data(DRONE['socket'])
     print(target)
     if type(target) == type({}):
         print("INFO: Recived target location: " + str(target))
         target_loc = target
-        send_mission(target_loc, {"lat": 34.059319, "lon": -117.820521})
+        #send_mission(target_loc, {"lat": 34.059319, "lon": -117.820521})
         # publish location to the topic
         msg = GPSFix()
         msg.latitude = target_loc['lat']

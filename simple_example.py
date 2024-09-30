@@ -75,7 +75,7 @@ def sendGoal():
         viapoint1.x = viapoint1_east - datum_east;
         viapoint1.y = viapoint1_north - datum_north;
 
-        print(viapoint1)
+        #print(viapoint1)
 
         viapoint2 = cpr_gps_navigation_msgs.msg.Waypoint();
         viapoint2.x = viapoint2_east - datum_east;
@@ -93,7 +93,7 @@ def sendGoal():
         goal.mission.pose_tolerance = 0.1
         goal.mission.yaw_tolerance = 0.2
 
-
+        print("Sending Goal to Husky...")
         # Sends the goal to the action server.
         client.send_goal(goal)
     else:
@@ -109,6 +109,7 @@ if __name__ == '__main__':
     try:
         rospy.init_node('simple_nav_example')
         res = sendGoal()
+        print(res)
         if res:
             print("mission completed!")
         else:
@@ -116,3 +117,5 @@ if __name__ == '__main__':
     except rospy.ROSInterruptException:
         print("mission failed!")
         pass
+    except Exception as e:
+        print("Exception: ", e)
